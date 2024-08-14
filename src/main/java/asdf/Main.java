@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 public class Main {
     public static final Pattern pattern = Pattern.compile("^[a-z]{1,2}\\.[a-zA-Z]+\\($");
     public static final Pattern patternClient = Pattern.compile("^client\\.[a-z][a-zA-Z]*\\($");
+    public static final Pattern patternInit = Pattern.compile("^[a-z]{1,2}\\.<init>\\($");
+    public static final Pattern patternField = Pattern.compile("^field\\d{1,4}$");
 
     public static void main(String[] args) throws IOException {
         String path1 = args[0];
@@ -37,30 +39,24 @@ public class Main {
         strings1 = filter(strings1);
         strings2 = filter(strings2);
 
-        int count1 = 0;
-        for (String string : strings1) {
-            if (!strings2.contains(string)) {
-                System.out.println(string);
-            }
-            count1++;
-        }
-
-        System.out.println("Found " + count1 + " strings in jar1 that are not in jar2");
-
-        int count2 = 0;
+        int count = 0;
         for (String string : strings2) {
             if (!strings1.contains(string)) {
                 System.out.println(string);
-                count2++;
+                count++;
             }
         }
-        System.out.println("found " + count2 + " strings in jar2 that are not in jar1");
+
+        System.out.println("found " + count + " strings in jar2 that are not in jar1");
     }
 
     static Set<String> filter(Set<String> strings) {
         Set<String> filteredStrings = new HashSet<>();
         for (String string : strings) {
-            if (pattern.matcher(string).matches() || patternClient.matcher(string).matches()) {
+            if (pattern.matcher(string).matches()
+                    || patternClient.matcher(string).matches()
+                    || patternInit.matcher(string).matches()
+                    || patternField.matcher(string).matches()) {
                 continue;
             }
 
