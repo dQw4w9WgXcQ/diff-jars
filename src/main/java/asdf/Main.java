@@ -26,6 +26,10 @@ public class Main {
         File file1 = new File(path1);
         File file2 = new File(path2);
 
+        System.out.println("jar1: " + file1.getAbsolutePath());
+        System.out.println("jar2: " + file2.getAbsolutePath());
+        System.out.println();
+
         Set<String> strings1;
         try (JarFile jarFile1 = new JarFile(file1)) {
             strings1 = findAllStrings(jarFile1);
@@ -43,11 +47,12 @@ public class Main {
         for (String string : strings2) {
             if (!strings1.contains(string)) {
                 System.out.println(string);
+                System.out.println();
                 count++;
             }
         }
 
-        System.out.println("found " + count + " strings in jar2 that are not in jar1");
+        System.out.println(count + " new strings");
     }
 
     static Set<String> filter(Set<String> strings) {
