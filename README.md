@@ -1,0 +1,1 @@
+uses BCEL (https://commons.apache.org/proper/commons-bcel/) to detect constant pool string changes between two jars.  this was used to detect if new strings were introduced between revisions of the oldschool runescape client.
