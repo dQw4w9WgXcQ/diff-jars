@@ -1,2 +1,2 @@
-rootProject.name = "diff"
-
+rootProject.name = "diff-jars"
+include("exe")

@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "asdf.diffjars"
@@ -9,10 +10,8 @@ repositories {
     mavenCentral()
 }
 
-apply<MavenPublishPlugin>()
-
 dependencies {
-    implementation("org.apache.bcel:bcel:6.6.0")
+    implementation(rootProject)
     implementation("org.slf4j:slf4j-api:2.0.7")
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
@@ -20,22 +19,17 @@ dependencies {
 
 tasks {
     java {
-        withSourcesJar()
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    build {
+        finalizedBy("shadowJar")
     }
 
     jar {
         manifest {
             attributes["Main-Class"] = "asdf.diffjars.Main"
-        }
-    }
-}
-
-configure<PublishingExtension> {
-    publications {
-        register("mavenJava", MavenPublication::class) {
-            from(components["java"])
         }
     }
 }
