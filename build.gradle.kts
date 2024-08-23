@@ -12,6 +12,10 @@ repositories {
 apply<MavenPublishPlugin>()
 
 dependencies {
+    implementation("org.ow2.asm:asm:9.5")
+    implementation("org.ow2.asm:asm-tree:9.5")
+    implementation("org.ow2.asm:asm-util:9.5")
+    implementation("org.ow2.asm:asm-commons:9.5")
     implementation("org.apache.bcel:bcel:6.6.0")
     implementation("org.slf4j:slf4j-api:2.0.7")
     compileOnly("org.projectlombok:lombok:1.18.34")
@@ -23,12 +27,6 @@ tasks {
         withSourcesJar()
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    jar {
-        manifest {
-            attributes["Main-Class"] = "asdf.diffjars.Main"
-        }
     }
 }
 
