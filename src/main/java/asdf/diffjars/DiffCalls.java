@@ -11,8 +11,6 @@ import java.util.regex.*;
 
 @Slf4j
 public class DiffCalls {
-    public static final Pattern RL_OWNER_PATTERN = Pattern.compile("^rl\\d+$");
-
     public static Set<String> diffCalls(File file1, File file2) {
         Set<String> calls1;
         try (JarFile jarFile1 = new JarFile(file1)) {
@@ -64,6 +62,8 @@ public class DiffCalls {
         }
         return allCalls;
     }
+
+    public static final Pattern RL_OWNER_PATTERN = Pattern.compile("^rl\\d+$");
 
     public static Set<String> findCalls(ClassNode cn) {
         Set<String> calls = new HashSet<>();
